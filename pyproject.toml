@@ -1,0 +1,60 @@
+[build-system]
+# hatchling keeps the install record inside .venv (setuptools would add a mbfs_crawler.egg-info folder here)
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mbfs-crawler"
+version = "0.1.0"
+description = "Collect images for detection datasets: search the internet, download, detect and crop with YOLO, remove noise"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Khanh Le" }]
+dependencies = [
+    "numpy>=1.24",
+    "opencv-python>=4.8",
+    "torch>=2.1",
+    "torchvision>=0.16",
+    "ultralytics>=8.3",
+    "lap>=0.5",
+    "onnx>=1.15",            # Ultralytics needs it to read .onnx models
+    "onnxruntime>=1.16",
+    "yt-dlp[default]>=2024.8.6",
+    "imageio-ffmpeg>=0.5",
+    "requests>=2.31",
+    "pyyaml>=6.0",
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+google = ["selenium>=4.15"]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.5", "build>=1.2", "hatchling>=1.21"]
+
+[project.scripts]
+mbfs-crawler = "mbfs_crawler.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["mbfs_crawler"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not system and not network' -p no:cacheprovider"  # no .pytest_cache folder
+markers = [
+    "system: end-to-end tests with the real CLI and real models (pytest -m system)",
+    "network: tests that use live internet sources (pytest -m network)",
+]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.coverage.run]
+source = ["mbfs_crawler"]
+omit = ["mbfs_crawler/__main__.py"]
+data_file = ".venv/.coverage"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+cache-dir = ".venv/.ruff_cache"  # keep the project folder clean
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["B008"]

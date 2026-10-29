@@ -1,0 +1,28 @@
+# Data produced by mbfs-crawler (large; never committed)
+dataset/
+downloads/
+references/
+*.log
+
+# Weights downloaded on first use (the internal models in models/ are committed)
+models/yolov8n.pt
+yolov8n.pt
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
