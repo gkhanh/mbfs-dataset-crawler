@@ -1,0 +1,143 @@
+{
+    "batchcomplete": true,
+    "continue": {
+        "gsroffset": 3,
+        "continue": "gsroffset||"
+    },
+    "query": {
+        "pages": [
+            {
+                "pageid": 32390877,
+                "ns": 6,
+                "title": "File:Flocks of birds in flight at Marrakech-Menara Airport 1.JPG",
+                "index": 2,
+                "imagerepository": "local",
+                "imageinfo": [
+                    {
+                        "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_1.JPG/1920px-Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                        "thumbwidth": 1920,
+                        "thumbheight": 1440,
+                        "responsiveUrls": {
+                            "2": "https://upload.wikimedia.org/wikipedia/commons/9/95/Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+                        },
+                        "thumbattribs": {
+                            "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_1.JPG/1920px-Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                            "decoding": "async",
+                            "loading": "lazy",
+                            "width": 1920,
+                            "height": 1440,
+                            "srcset": "https://upload.wikimedia.org/wikipedia/commons/9/95/Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+                        },
+                        "url": "https://upload.wikimedia.org/wikipedia/commons/9/95/Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                        "descriptionurl": "https://commons.wikimedia.org/wiki/File:Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_1.JPG",
+                        "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=32390877",
+                        "extmetadata": {
+                            "Artist": {
+                                "value": "<a href=\"//commons.wikimedia.org/wiki/User:Oliver_H\" title=\"User:Oliver H\">Oliver H</a>",
+                                "source": "commons-desc-page"
+                            },
+                            "LicenseShortName": {
+                                "value": "CC BY-SA 3.0",
+                                "source": "commons-desc-page",
+                                "hidden": ""
+                            },
+                            "LicenseUrl": {
+                                "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                                "source": "commons-desc-page"
+                            }
+                        },
+                        "mime": "image/jpeg"
+                    }
+                ]
+            },
+            {
+                "pageid": 32390879,
+                "ns": 6,
+                "title": "File:Flocks of birds in flight at Marrakech-Menara Airport 5.JPG",
+                "index": 3,
+                "imagerepository": "local",
+                "imageinfo": [
+                    {
+                        "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_5.JPG/1920px-Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_5.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                        "thumbwidth": 1920,
+                        "thumbheight": 1440,
+                        "responsiveUrls": {
+                            "2": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_5.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+                        },
+                        "thumbattribs": {
+                            "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_5.JPG/1920px-Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_5.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                            "decoding": "async",
+                            "loading": "lazy",
+                            "width": 1920,
+                            "height": 1440,
+                            "srcset": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_5.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+                        },
+                        "url": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_5.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                        "descriptionurl": "https://commons.wikimedia.org/wiki/File:Flocks_of_birds_in_flight_at_Marrakech-Menara_Airport_5.JPG",
+                        "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=32390879",
+                        "extmetadata": {
+                            "Artist": {
+                                "value": "<a href=\"//commons.wikimedia.org/wiki/User:Oliver_H\" title=\"User:Oliver H\">Oliver H</a>",
+                                "source": "commons-desc-page"
+                            },
+                            "LicenseShortName": {
+                                "value": "CC BY-SA 4.0",
+                                "source": "commons-desc-page",
+                                "hidden": ""
+                            },
+                            "LicenseUrl": {
+                                "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                                "source": "commons-desc-page"
+                            }
+                        },
+                        "mime": "image/jpeg"
+                    }
+                ]
+            },
+            {
+                "pageid": 192728227,
+                "ns": 6,
+                "title": "File:Flying over Ontario International Airport (KONT) (49532331633).jpg",
+                "index": 1,
+                "imagerepository": "local",
+                "imageinfo": [
+                    {
+                        "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Flying_over_Ontario_International_Airport_%28KONT%29_%2849532331633%29.jpg/1920px-Flying_over_Ontario_International_Airport_%28KONT%29_%2849532331633%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                        "thumbwidth": 1920,
+                        "thumbheight": 1269,
+                        "responsiveUrls": {
+                            "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Flying_over_Ontario_International_Airport_%28KONT%29_%2849532331633%29.jpg/3840px-Flying_over_Ontario_International_Airport_%28KONT%29_%2849532331633%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                        },
+                        "thumbattribs": {
+                            "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Flying_over_Ontario_International_Airport_%28KONT%29_%2849532331633%29.jpg/1920px-Flying_over_Ontario_International_Airport_%28KONT%29_%2849532331633%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                            "decoding": "async",
+                            "loading": "lazy",
+                            "width": 1920,
+                            "height": 1269,
+                            "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Flying_over_Ontario_International_Airport_%28KONT%29_%2849532331633%29.jpg/3840px-Flying_over_Ontario_International_Airport_%28KONT%29_%2849532331633%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                        },
+                        "url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Flying_over_Ontario_International_Airport_%28KONT%29_%2849532331633%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                        "descriptionurl": "https://commons.wikimedia.org/wiki/File:Flying_over_Ontario_International_Airport_(KONT)_(49532331633).jpg",
+                        "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=192728227",
+                        "extmetadata": {
+                            "Artist": {
+                                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/43494963@N03\">Charles</a> from Port Chester, New York",
+                                "source": "commons-desc-page"
+                            },
+                            "LicenseShortName": {
+                                "value": "CC BY 2.0",
+                                "source": "commons-desc-page",
+                                "hidden": ""
+                            },
+                            "LicenseUrl": {
+                                "value": "https://creativecommons.org/licenses/by/2.0",
+                                "source": "commons-desc-page"
+                            }
+                        },
+                        "mime": "image/jpeg"
+                    }
+                ]
+            }
+        ]
+    }
+}
