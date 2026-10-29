@@ -1,0 +1,130 @@
+# ============================================================================================================
+# Các loại dataset: mbfs-crawler thu thập CÁI GÌ. Muốn thay đổi thì chỉ cần sửa file này.
+#
+#   mbfs-crawler types                  liệt kê các loại bên dưới
+#   mbfs-crawler search birds           chạy các câu tìm kiếm, LƯU link tìm được vào links/birds/found.txt
+#                                       (không tải video / ảnh; chạy lại thì chỉ thêm link mới vào cuối file)
+#   mbfs-crawler run birds              thu thập ảnh vào ../dataset/birds/images/
+#   mbfs-crawler run birds -i my.txt    chỉ thu thập từ link / file video của bạn, không tìm kiếm
+#
+# Thêm một loại mới: chép một khối bên dưới, đặt tên mới (chữ, số, dấu _), rồi sửa các câu tìm kiếm.
+# Sau khi sửa, chạy `mbfs-crawler check-setup` để kiểm tra file có hợp lệ không.
+#
+# Các thiết lập của một loại (thường chỉ cần sửa `search` và `detector`):
+#   description     một dòng mô tả, hiện khi chạy `mbfs-crawler types`
+#   search          các câu tìm kiếm, chạy trên mọi nguồn trong `sources`       (dùng khi `run` không có -i)
+#   links           danh sách link (.txt, mỗi dòng một link) hoặc thư mục video, mỗi loại một thư mục:
+#                   links/birds/, links/food_factory_workers/, links/vehicle/. Đường dẫn tính từ thư mục chứa
+#                   file này. found.txt là file `search` ghi vào: xoá dòng không muốn, hoặc thêm link của bạn.
+#                   Phải ghi từng file .txt (một .txt nằm trong thư mục không được đọc)  (dùng khi `run` không có -i)
+#   exclude_words   bỏ qua kết quả có tiêu đề chứa một trong các từ này (trước khi tải, nên không tốn mạng)
+#   sources         tìm ở đâu và bao nhiêu kết quả cho mỗi câu tìm kiếm (limit):
+#                   youtube, wikimedia, openverse, internet_archive, bilibili, niconico, bing_images, google_images
+#   download        max_res: độ phân giải video tải về (chiều cao, pixel)
+#                   max_duration: bỏ qua video dài hơn N giây
+#                   max_minutes: chỉ tải N phút đầu của mỗi video
+#   detector        model YOLO (trong models/) dùng để tìm đối tượng, và giữ lại những lớp (classes) nào
+#   processor       type crop  = lưu một ảnh cho mỗi đối tượng phát hiện được (người, xe, ...)
+#                   type frame = lưu nguyên khung hình video có chứa đối tượng (chim ở xa)
+#                   every / every_max: số giây giữa hai khung hình được phân tích
+#                                      (tự thưa dần khi không thấy gì, tối đa every_max)
+#                   track_gap / max_per_track: mỗi đối tượng tối đa một ảnh mỗi N giây, tối đa N ảnh
+#                   stop_after: dừng video sau N ảnh bị loại liên tiếp (không còn gì mới)
+#   quality         min_conf: độ tin cậy tối thiểu của phát hiện | min_height: chiều cao tối thiểu (pixel)
+#                   min_sharpness: độ nét tối thiểu (0 = tắt)
+#   filters         duplicate: loại ảnh quá giống ảnh đã lưu (max_similarity từ 0 đến 1, càng thấp càng loại nhiều)
+#                   reference: loại ảnh giống các ảnh mẫu bạn đã đánh dấu là nhiễu (`mbfs-crawler review`)
+# ============================================================================================================
+
+birds:
+  description: Flocks of birds in the sky, near airports and helipads; whole frames that contain birds
+  search:
+    - flock of birds flying sky
+    - birds flying over airport runway
+    - bird strike airport camera
+    - flock of birds far away
+    - birds near helipad
+    - seagulls flying sky distance
+  links:
+    - links/birds/found.txt
+  exclude_words: [cartoon, animation, drawing, painting, game, toy, angry birds, cage, pet, parrot, talking]
+  sources:
+    youtube: {limit: 10}
+    wikimedia: {limit: 40, media: [image, video]}
+    openverse: {limit: 40}
+    internet_archive: {limit: 5}
+  download: {max_res: 1080, max_duration: 1800}        # chim nhỏ và ở xa nên cần độ phân giải cao
+  detector: {model: models/yolov8n.pt, classes: [bird], imgsz: 640, tile: true}  # tự tải về ở lần dùng đầu tiên
+  processor:
+    type: frame
+    every: 1.0              # một khung hình mỗi giây ...
+    every_max: 4.0          # ... thưa dần tới một khung mỗi 4 giây khi không thấy chim
+    min_change: 0.00003     # bỏ qua khung hình không có gì chuyển động (trời tĩnh): không chạy model
+    min_count: 1            # giữ khung hình có ít nhất một con chim
+    background_ratio: 0.1   # và một ít khung không có chim làm mẫu âm (máy bay, mây, nhà cửa)
+    stop_after: 30
+  quality: {min_conf: 0.15, min_sharpness: 20, reject_broken: false}  # để thấp: thà giữ khung đáng ngờ còn hơn bỏ sót chim
+  filters:
+    duplicate: {max_similarity: 0.92}   # các khung cùng cảnh rất giống nhau; chỉ loại những khung gần như trùng hẳn
+    reference: {k: 7, min_similarity: 0.55}
+
+food_factory_workers:
+  description: Workers in food factories and restaurant kitchens (gloves, hairnets); one image per person
+  search:
+    - food factory workers gloves hairnet
+    - central kitchen workers production line
+    - restaurant kitchen cctv cooks
+    - food processing plant workers hygiene
+  links:
+    - links/food_factory_workers/found.txt
+  exclude_words: [cartoon, animation, animated, anime, game, gameplay, minecraft, trailer, toy, lego]
+  sources:
+    youtube: {limit: 10}
+    internet_archive: {limit: 5}
+    wikimedia: {limit: 30, media: [image, video]}
+    openverse: {limit: 40}
+  download: {max_res: 720, max_duration: 1800}         # model chạy ở 640 px nên 720p là đủ
+  detector: {model: models/mbfsn_human_det_v6.onnx, classes: [person], imgsz: 640}
+  processor:
+    type: crop
+    pad: 0.1                # lề quanh mỗi người, tính theo tỉ lệ kích thước khung
+    every: 0.2              # một khung hình mỗi 0.2 giây ...
+    every_max: 1.0          # ... thưa dần tới mỗi 1 giây khi 2 giây liền không thấy ai
+    track_gap: 2.0          # mỗi người tối đa một ảnh mỗi 2 giây (lấy ảnh nét nhất)
+    max_per_track: 5        # mỗi người tối đa 5 ảnh trong một video
+    stop_after: 50
+  quality: {min_conf: 0.5, min_height: 160, min_sharpness: 40}
+  filters:
+    duplicate: {max_similarity: 0.85}
+    reference: {k: 7, min_similarity: 0.55}
+
+vehicle:
+  description: Cars, motorbikes, trucks and buses in traffic; one image per vehicle
+  search:
+    - traffic cctv camera footage
+    - vietnam street traffic motorbikes
+    - highway traffic camera
+    - parking lot cctv
+    - dashcam city driving
+  links:
+    - links/vehicle/found.txt
+  exclude_words: [cartoon, animation, game, gameplay, gta, toy, lego, trailer, review, unboxing]
+  sources:
+    youtube: {limit: 10}
+    internet_archive: {limit: 5}
+    wikimedia: {limit: 30}
+    openverse: {limit: 40}
+  download: {max_res: 720, max_duration: 1800}
+  detector: {model: models/mbfsn_vehicle_det_v6.onnx, classes: [car, motorbike, truck, bus], imgsz: 640}
+  processor:
+    type: crop
+    pad: 0.05
+    every: 0.2
+    every_max: 1.0
+    track_gap: 2.0
+    max_per_track: 3        # xe đi qua nhanh: vài ảnh mỗi xe là đủ
+    stop_after: 50
+  quality: {min_conf: 0.5, min_height: 64, min_sharpness: 40}
+  filters:
+    duplicate: {max_similarity: 0.85}
+    reference: {k: 7, min_similarity: 0.55}
