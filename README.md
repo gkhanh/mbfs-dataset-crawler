@@ -173,7 +173,6 @@ Không đặt tên loại là `references` hoặc `logs` (trùng thư mục củ
 | `youtube`, `bilibili`, `niconico` | video | không rõ (rủi ro bản quyền) |
 | `wikimedia` | ảnh + video | CC / public domain, ghi theo từng file |
 | `openverse` | ảnh | Creative Commons (đôi khi chậm) |
-| `internet_archive` | video | theo từng mục |
 | `google_images` | ảnh (cần Chrome) | không rõ |
 | `bing_images` | ảnh | không rõ; **không bật sẵn** (hay trả kết quả không liên quan, xem trước bằng `search`) |
 | link (`-i URL`), file, thư mục | mọi loại | theo link / `local` |

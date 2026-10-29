@@ -12,13 +12,11 @@ import mbfs_crawler.sources as sources_mod
 from mbfs_crawler.sources import (
     BingImagesSource,
     GoogleImagesSource,
-    InternetArchiveSource,
     LocalSource,
     MediaType,
     OpenverseSource,
     WikimediaSource,
     YouTubeSource,
-    archive_query,
     extract_image_urls,
     http_get,
     license_category,
@@ -123,17 +121,6 @@ def test_openverse_parses_licenses(monkeypatch, ctx_factory):
 def test_openverse_stops_quietly_when_the_service_does_not_answer(monkeypatch, ctx_factory):
     serve(monkeypatch, sys.modules["mbfs_crawler.sources"])
     assert list(OpenverseSource(ctx_factory()).search("cat")) == []
-
-
-def test_internet_archive_items_and_query(monkeypatch, ctx_factory):
-    data = json.loads((FIXTURES / "internet_archive.json").read_text(encoding="utf-8"))
-    calls = serve(monkeypatch, sys.modules["mbfs_crawler.sources"], FakeResponse(data))
-    items = list(InternetArchiveSource(ctx_factory(), limit=3).search("birds over the airport"))
-    assert len(items) == 3 and all(i.media_type is MediaType.VIDEO for i in items)
-    assert items[0].uri == "https://archive.org/details/bc18ma-Wings_of_Freedom_2013"
-    assert items[0].key == "archiveorg_bc18ma-Wings_of_Freedom_2013"
-    assert calls[0]["q"] == "(title:(birds AND airport) OR subject:(birds AND airport)) AND mediatype:(movies)"
-    assert archive_query("the of") == "(title:(the AND of) OR subject:(the AND of)) AND mediatype:(movies)"
 
 
 BING_PAGE = """<div><a class="iusc" m="{&quot;murl&quot;:&quot;https://a.org/1.jpg&quot;,&quot;t&quot;:&quot;One&quot;,

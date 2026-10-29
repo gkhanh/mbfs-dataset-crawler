@@ -11,7 +11,7 @@ from pathlib import Path
 from mbfs_crawler.config import Paths
 
 HOSTS = {"youtube": "https://www.youtube.com", "wikimedia": "https://commons.wikimedia.org",
-         "openverse": "https://api.openverse.org", "internet_archive": "https://archive.org",
+         "openverse": "https://api.openverse.org",
          "bing_images": "https://www.bing.com", "google_images": "https://www.google.com",
          "model downloads (GitHub)": "https://github.com"}
 

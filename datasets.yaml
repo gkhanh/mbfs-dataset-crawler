@@ -19,7 +19,7 @@
 #                   Phải ghi từng file .txt (một .txt nằm trong thư mục không được đọc)  (dùng khi `run` không có -i)
 #   exclude_words   bỏ qua kết quả có tiêu đề chứa một trong các từ này (trước khi tải, nên không tốn mạng)
 #   sources         tìm ở đâu và bao nhiêu kết quả cho mỗi câu tìm kiếm (limit):
-#                   youtube, wikimedia, openverse, internet_archive, bilibili, niconico, bing_images, google_images
+#                   youtube, wikimedia, openverse, bilibili, niconico, bing_images, google_images
 #   download        max_res: độ phân giải video tải về (chiều cao, pixel)
 #                   max_duration: bỏ qua video dài hơn N giây
 #                   max_minutes: chỉ tải N phút đầu của mỗi video
@@ -52,7 +52,6 @@ birds:
     youtube: {limit: 10}
     wikimedia: {limit: 40, media: [image, video]}
     openverse: {limit: 40}
-    internet_archive: {limit: 5}
   download: {max_res: 1080, max_duration: 1800}        # chim nhỏ và ở xa nên cần độ phân giải cao
   detector: {model: models/yolov8n.pt, classes: [bird], imgsz: 640, tile: true}  # tự tải về ở lần dùng đầu tiên
   processor:
@@ -80,7 +79,6 @@ food_factory_workers:
   exclude_words: [cartoon, animation, animated, anime, game, gameplay, minecraft, trailer, toy, lego]
   sources:
     youtube: {limit: 10}
-    internet_archive: {limit: 5}
     wikimedia: {limit: 30, media: [image, video]}
     openverse: {limit: 40}
   download: {max_res: 720, max_duration: 1800}         # model chạy ở 640 px nên 720p là đủ
@@ -111,7 +109,6 @@ vehicle:
   exclude_words: [cartoon, animation, game, gameplay, gta, toy, lego, trailer, review, unboxing]
   sources:
     youtube: {limit: 10}
-    internet_archive: {limit: 5}
     wikimedia: {limit: 30}
     openverse: {limit: 40}
   download: {max_res: 720, max_duration: 1800}

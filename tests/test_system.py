@@ -211,7 +211,7 @@ def live_context(tmp_path, name="birds"):
 
 @pytest.mark.network
 @pytest.mark.parametrize("source,query", [("youtube", "birds airport runway"), ("wikimedia", "flock of birds"),
-                                          ("internet_archive", "birds airport"), ("openverse", "seagull")])
+                                          ("openverse", "seagull")])
 def test_live_sources_return_results(tmp_path, source, query):
     from mbfs_crawler.pipeline import make_sources
 

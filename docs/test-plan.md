@@ -34,10 +34,10 @@ Bốn nguyên tắc dẫn đến cách tổ chức phía dưới:
 ```
                       ▲ ít, chậm, sát thực tế
                      ╱ ╲
-   network  (10)    ╱   ╲   Internet thật: nguồn còn trả đúng định dạng không?
+   network  (9)     ╱   ╲   Internet thật: nguồn còn trả đúng định dạng không?
    system   ( 5)   ╱─────╲  lệnh thật + model thật + không màn hình + gói cài đặt
    integration(12)╱───────╲ cả chương trình trong một tiến trình, model giả, "Internet" giả
-   unit (237)    ╱─────────╲ từng module riêng, mọi thứ giả, mỗi test vài mili-giây
+   unit (236)    ╱─────────╲ từng module riêng, mọi thứ giả, mỗi test vài mili-giây
                 ▼ nhiều, nhanh, dễ chỉ ra lỗi ở đâu
 ```
 
@@ -75,7 +75,7 @@ các lỗi đó (và có test unit cho chúng), nhưng chỉ máy Windows thật
 | `web` (`conftest.py`) | Web server cục bộ (`127.0.0.1`) đóng vai Internet | Chạy **yt-dlp thật, requests thật, code tải thật** mà không cần mạng, không bị giới hạn tốc độ, kết quả xác định |
 | `ctx_factory` (`conftest.py`) | Tạo `RunContext` có sẵn detector / encoder giả, thư mục tạm | Mỗi test một "môi trường" riêng, không dùng chung trạng thái |
 | `log_lines`, `restore_logging` (`conftest.py`) | Thu lại các dòng log của test; trả logger về như cũ sau mỗi test | `cli.main()` cấu hình lại logger toàn cục; không khôi phục thì test này làm sai test kia |
-| `tests/fixtures/*.json` | **Phản hồi thật** đã lưu của Wikimedia, Openverse, Internet Archive | Ghim lại định dạng thật mà code đang phân tích. Nếu trang đổi định dạng, test network đỏ → cập nhật fixture và code cùng lúc |
+| `tests/fixtures/*.json` | **Phản hồi thật** đã lưu của Wikimedia, Openverse | Ghim lại định dạng thật mà code đang phân tích. Nếu trang đổi định dạng, test network đỏ → cập nhật fixture và code cùng lúc |
 | Ảnh mẫu của Ultralytics (`bus.jpg`, `zidane.jpg`) | Ảnh có sẵn trong thư viện, có người và xe buýt thật | Test `system` dùng model thật trên ảnh thật mà không cần tải thêm gì |
 
 ---
@@ -95,12 +95,12 @@ các lỗi đó (và có test unit cho chúng), nhưng chỉ máy Windows thật
 | `Paths` | mặc định `../dataset` và `../downloads` nằm **ngoài** thư mục dự án; đổi bằng tuỳ chọn / biến môi trường; tên loại `references`, `logs` bị cấm | Yêu cầu "dự án chỉ chứa mã nguồn"; tránh loại trùng tên thư mục của công cụ |
 | Log (`setup`, `--debug`, `short_error`, `YtDlpLogger`) | terminal ngắn, file log đầy đủ có giờ + tên luồng + traceback; đếm cảnh báo; thông điệp lỗi một dòng dễ đọc; yt-dlp không in đè thanh tiến độ | Yêu cầu "log terminal gọn" và "debug mode khi chạy hỏng" |
 
-### `test_sources.py` (53 test) — nguồn dữ liệu (`sources.py`)
+### `test_sources.py` (52 test) — nguồn dữ liệu (`sources.py`)
 
 | Nhóm test | Kiểm tra | Vì sao cần |
 |---|---|---|
 | License | chuẩn hoá `CC BY-SA 4.0`, URL Creative Commons, CC0, public domain; phân loại `pd / cc / cc-nc / local / unknown` | cột `license` của `crops.csv` và `stats` dựa vào đây để biết ảnh nào được dùng thương mại |
-| Wikimedia, Openverse, Internet Archive | phân tích **phản hồi thật đã lưu**: số lượng theo `limit`, trang kế tiếp, license, ảnh thu nhỏ 1920 px; dịch vụ không trả lời thì dừng êm | Phân tích sai định dạng = không có dữ liệu. Phản hồi thật bảo đảm test không chỉ khớp với tưởng tượng của tôi |
+| Wikimedia, Openverse | phân tích **phản hồi thật đã lưu**: số lượng theo `limit`, trang kế tiếp, license, ảnh thu nhỏ 1920 px; dịch vụ không trả lời thì dừng êm | Phân tích sai định dạng = không có dữ liệu. Phản hồi thật bảo đảm test không chỉ khớp với tưởng tượng của tôi |
 | Bing, Google | trang HTML mẫu: bỏ qua mục JSON hỏng, bỏ trùng, bỏ ảnh thu nhỏ của chính Google, kiểm tra bộ lọc hợp lệ, thiếu Selenium chỉ cảnh báo | Hai nguồn này phân tích HTML nên dễ vỡ nhất; test chỉ rõ chỗ cần sửa khi trang đổi |
 | Link và yt-dlp (giả) | playlist → từng video; link ảnh không cần hỏi yt-dlp; **link video trực tiếp (`.webm`, `.mp4`) không hỏi yt-dlp**; trang yt-dlp không đọc được (lỗi `ValueError`) chỉ là một cảnh báo | Chính là lỗi `play-av` và 429 của Wikimedia đã gặp |
 | File / thư mục / `.txt` | quét đệ quy, bỏ file ẩn, bỏ thư mục kết quả của chính công cụ, ghi chú `# license=…`, `C:\…` không bị nhầm là link | Đầu vào cục bộ phải đúng trên cả Windows lẫn Unix; không quét lại kết quả của mình |
@@ -173,7 +173,7 @@ các lỗi đó (và có test unit cho chúng), nhưng chỉ máy Windows thật
 | `frame_type_skips_static_frames…` (system) | video trời tĩnh: bỏ khung không đổi nhưng vẫn giữ khung có chim, ảnh giữ nguyên 1280×720 | Cách xử lý `frame` của loại `birds` |
 | `every_command_runs_headless` (system) | mọi lệnh chạy với stdin đóng, không `DISPLAY`, log không có ký tự thanh tiến độ, mã thoát đúng | Chạy qua SSH |
 | `installed_wheel_runs_with_a_datasets_yaml` (system) | build gói, cài, chạy `types` từ gói với `datasets.yaml` của dự án; có lệnh `mbfs-crawler` | Đồng nghiệp có thể cài từ gói, không từ thư mục nguồn; thiếu file trong gói là lỗi chỉ lộ khi cài |
-| `live_sources_return_results` (network) | YouTube, Wikimedia, Internet Archive, Openverse trả kết quả thật | Phát hiện sớm khi trang đổi |
+| `live_sources_return_results` (network) | YouTube, Wikimedia, Openverse trả kết quả thật | Phát hiện sớm khi trang đổi |
 | `optional_live_sources_never_crash` (network) | Bilibili, Niconico, Bing, Google: có thể rỗng nhưng không được văng lỗi | Nguồn tuỳ chọn không được làm hỏng lần chạy |
 | `live_video_download_takes_only_the_first_seconds` (network) | `max_minutes` thật sự chỉ tải phần đầu | Tiết kiệm băng thông |
 | `birds_type_keeps_real_bird_photos…` (network) | `run birds` với Wikimedia: `yolov8n` tìm thấy chim trong ảnh thật, không có `labels/` | Đường tự tải `yolov8n.pt` và cổng chim |
@@ -209,10 +209,10 @@ Danh sách này là bằng chứng cho việc kế hoạch kiểm thử có tác
 | Tầng | Kết quả |
 |---|---|
 | Lint | sạch |
-| Unit + integration | **249 passed** (≈ 10 s), độ phủ **94%** |
+| Unit + integration | **248 passed** (≈ 10 s), độ phủ **94%** |
 | System | **5 passed** (≈ 16 s) |
-| Network | **8 passed**, 2 skipped: Niconico và Google Images không trả kết quả từ mạng này (nguồn tuỳ chọn) |
-| Chạy thật, 7 nguồn (5 video Wikimedia, Internet Archive, YouTube) + link chết | exit 0, 63 ảnh, không 429, mỗi lỗi một dòng `!`, kết thúc có `warnings: N` |
+| Network | **7 passed**, 2 skipped: Niconico và Google Images không trả kết quả từ mạng này (nguồn tuỳ chọn) |
+| Chạy thật, 7 nguồn (5 video Wikimedia, YouTube) + link chết | exit 0, 63 ảnh, không 429, mỗi lỗi một dòng `!`, kết thúc có `warnings: N` |
 
 **Vì sao độ phủ là 94% chứ không phải 100%?** 143 dòng chưa được test thường chạy tới. Chúng thuộc các loại mà dựng bản giả chỉ là
 kiểm tra cái giả, nên không đáng viết: nạp DINOv2 thật (~90 MB; được test system chạy nhưng không tính vào độ phủ của `pytest`

@@ -241,7 +241,7 @@ def test_unknown_name_lists_choices_and_suggests_the_closest():
 
 
 def test_plugins_are_discovered_from_their_packages():
-    assert {"youtube", "wikimedia", "openverse", "internet_archive", "bing_images", "google_images", "local",
+    assert {"youtube", "wikimedia", "openverse", "bing_images", "google_images", "local",
             "url_list", "bilibili", "niconico"} <= set(SOURCES.names())
     assert {"crop", "frame"} <= set(PROCESSORS.names())
     assert {"duplicate", "reference"} <= set(FILTERS.names())

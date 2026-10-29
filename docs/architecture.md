@@ -15,7 +15,7 @@ Một công cụ duy nhất để gom ảnh cho **mọi** loại model phát hi�
  ┌───────────────────────┐   ┌──────────────────────────────────────┐   ┌──────────────────────────────┐
  │ Tìm kiếm Internet     │   │  1. thu thập  → MediaItem             │   │ dataset/<TYPE>/              │
  │  youtube, wikimedia,  │──►│  2. bỏ qua cái đã làm / trùng / dài   │──►│   images/   ảnh để gán nhãn  │
- │  openverse, archive…  │   │  3. tải về (cache dùng chung)         │   │   crops.csv nguồn + license  │
+ │  openverse, …         │   │  3. tải về (cache dùng chung)         │   │   crops.csv nguồn + license  │
  │ Link (≈1800 trang)    │   │  4. YOLO: cắt vật thể | giữ khung hình│   │   rejected/ ảnh bị loại      │
  │ File / thư mục máy    │   │  5. lọc: chất lượng, trùng, nhiễu(RAG)│   └──────────────┬───────────────┘
  └───────────────────────┘   │  6. lưu + đánh dấu đã xong            │                  │
@@ -39,7 +39,7 @@ mbfs-dataset-crawler/                ← DỰ ÁN (git repo)
 ├── mbfs_crawler/                    ← MÃ NGUỒN (một thư mục, không thư mục con)
 │   ├── cli.py          các lệnh: check-setup, types, search, run, review, clean, stats, …
 │   ├── pipeline.py     điều phối một lần chạy: thu thập → tải → xử lý → lọc → lưu; và lệnh clean
-│   ├── sources.py      nguồn: youtube, bilibili, niconico, wikimedia, openverse, internet_archive,
+│   ├── sources.py      nguồn: youtube, bilibili, niconico, wikimedia, openverse,
 │   │                   bing_images, google_images, url_list (link), local (file); license
 │   ├── downloads.py    tải ảnh (song song) và video (yt-dlp), cache trong ../downloads/
 │   ├── processors.py   đọc khung hình (thích ứng), luật chất lượng, xử lý "crop" và "frame"

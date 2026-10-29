@@ -466,49 +466,6 @@ def _openverse_item(result: dict) -> MediaItem:
 
 
 # ==============================================================================================================
-# Internet Archive (archive.org) videos, many with open licenses, no ARCHIVE_API key. Downloads go through yt-dlp.
-# ==============================================================================================================
-
-ARCHIVE_API = "https://archive.org/advancedsearch.php"
-_STOP_WORDS = {"a", "an", "and", "at", "for", "from", "in", "of", "on", "or", "over", "the", "to", "with"}
-
-
-@SOURCES.register("internet_archive")
-class InternetArchiveSource(Source):
-    """archive.org movies (CCTV clips, documentaries, home videos) whose title or subject has every key word."""
-
-    def __init__(self, ctx, limit: int = 5):
-        super().__init__(ctx, limit)
-
-    def search(self, query: str) -> Iterator[MediaItem]:
-        if self.limit <= 0:
-            return
-        params = {"q": archive_query(query), "fl[]": ["identifier", "title", "licenseurl"], "rows": self.limit,
-                  "page": 1, "output": "json"}
-        resp = http_get(self.ctx, ARCHIVE_API, params)
-        if resp is None:
-            return
-        for doc in (resp.json().get("response") or {}).get("docs", [])[: self.limit]:
-            identifier = doc.get("identifier")
-            if not identifier:
-                continue
-            url = f"https://archive.org/details/{identifier}"
-            title = doc.get("title") or ""
-            license_url = doc.get("licenseurl") or ""
-            yield MediaItem(url, MediaType.VIDEO, video_key("ArchiveOrg", identifier),
-                            title=title if isinstance(title, str) else " ".join(title),
-                            source_name="internet_archive", license=normalize_license(license_url),
-                            license_url=license_url, page_url=url)
-
-
-def archive_query(query: str) -> str:
-    """Every key word must appear in the title or the subject tags (plain full-text search is far too loose)."""
-    words = re.findall(r"\w+", query.lower())
-    terms = " AND ".join([w for w in words if w not in _STOP_WORDS] or words)
-    return f"(title:({terms}) OR subject:({terms})) AND mediatype:(movies)"
-
-
-# ==============================================================================================================
 # Bing image search, read from the plain HTML results page (no browser, no API key).
 #
 # Not enabled in datasets.yaml: Bing may answer automated requests with unrelated images (seen in October
